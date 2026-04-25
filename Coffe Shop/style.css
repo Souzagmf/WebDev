@@ -58,7 +58,7 @@ section{
     color: var(--main-color);
     border-bottom: 0.2rem solid var(--main-color);
     padding-bottom: 0.5rem;
-    font-size: 1.8rem;   
+    font-size: 1.9rem;
 }
 
 .icons img{
@@ -67,8 +67,7 @@ section{
 }
 
 .icons img:hover{
-    width: 40px;
-    height: 40px;
+    transform: scale(1.2);
 }
 
 /*HEADER END*/
@@ -85,8 +84,8 @@ section{
 }
 
 .btn:hover{
-    font-size: 1.8rem;
-    letter-spacing: 0.1rem;
+    transform: scale(1.1);
+    z-index: 5;
     font-weight: bold;
 }
 
@@ -106,6 +105,7 @@ section{
 
 .content{
     max-width: 60rem;
+
 }
 
 .content h3{
@@ -144,16 +144,23 @@ section{
     gap: 1.5rem;
 }
 
-.about .row content{
+.about .row .content{
     padding: 3rem;
+    display: flex;
+    max-width: 60rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .about .row .content h3{
     font-size: 3rem;
     color: #fff;
-
+    margin-bottom: 2rem;
+    
 }
-.about .row content p{
+.about .row .content p{
+    text-align: justify;
     font-size: 1.6rem;
     color: #fff;
     padding: 1rem 0;
@@ -163,7 +170,7 @@ section{
 
 /*MENU START*/
 
-.menu .box-container{
+.box-container{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     gap: 1.5rem;
@@ -209,17 +216,11 @@ section{
 /*MENU END*/
 
 /*REVIEW START*/
-
-.review .box-container{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-    gap: 1.5rem;
-}
-
 .review .box-container .box{
     border: var(--border);
     text-align: center;
     padding: 3rem 2rem;
+    background-color: var(--bg);
 }
 
 .review .box-container .box p{
@@ -227,6 +228,7 @@ section{
     color: #fff;
     padding: 2rem 0;
     line-height: 1.8;
+    font-weight: lighter;
 }
 
 .review .box-container .box .user{
@@ -234,4 +236,48 @@ section{
     width: 7rem;
     border-radius: 50%;
 }
+
+.review .box-container .box h3{
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.review .box-container .box:hover{
+    transform: scale(1.2);
+    z-index: 10;
+    background-color: var(--bg);
+    cursor: pointer;
+}
 /*REVIEW END*/
+
+/*ADDRESS START*/
+.address {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+/*ADDRESS END*/
+
+/*FOOTER START*/
+.footer{
+    text-align: center;
+}
+
+.footer .share{
+    padding: 1rem 0;
+}
+
+.footer .share img{
+    width: 60px;
+    height: 60px;
+    margin: 1.3rem;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 1rem;
+}
+
+.footer .share img:hover{
+    background-color: var(--main-color);
+}
+/*FOOTER END*/
