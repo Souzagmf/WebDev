@@ -7,6 +7,9 @@ function App() {
   const [email, setEmail] = useState("gael@mail.com")
   const [age, setAge] = useState("27")
   const [users, setUsers] = useState([])
+  const deleteUser = (id) => {
+    setUsers(users.filter(u => u.id !== id));
+  }
 
   function HandleSubmit(event) {
     event.preventDefault()
@@ -16,6 +19,7 @@ function App() {
     setUsers([...users, newUser])
   }
 
+  
   return (
     <div className="app">
       <h1 className='title'>Cadastro de usuários</h1>
@@ -28,9 +32,9 @@ function App() {
       </form>
       <div className="user-list">
         <h1 className='title'>Usuários Cadastrados</h1>
-        <p>{users.map((user) => (
-          <UserCard key={user.id} user={user} />
-        ))}</p>
+        <div>{users.map((user) => (
+          <UserCard key={user.id} user={user}  onDelete = {deleteUser}/>
+        ))}</div>
       </div>
     </div>
   )

@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Play:wght@400;700&display=swap');
 
-:root{
-    --font-play:"Play", sans-serif;;
-    --font-silkscreen: "Silkscreen", sans-serif;
+:root {
+  --font-play: "Play", sans-serif;
+  ;
+  --font-silkscreen: "Silkscreen", sans-serif;
 }
 
 .app {
@@ -48,8 +49,10 @@ form button {
 
 form button:hover {
   transform: scale(1.02);
+  background: linear-gradient(135deg, #667eead4, #764ba2d4);
+
 }
 
-.title{
-    font-family: var(--font-silkscreen);
+.title {
+  font-family: var(--font-silkscreen);
 }
