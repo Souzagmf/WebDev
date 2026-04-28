@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+:root {
+    --bg-color: linear-gradient(90deg, hsla(230, 100%, 67%, 1) 0%, rgb(113, 168, 255) 50%, hsla(230, 100%, 67%, 1) 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito", sans-serif;
+}
+
+body {
+    background:linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(./src/cloud.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+}
+
+
+section, .main-card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.main-card, .card-list{
+    width: 40rem;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    margin-top: 50px;
+}
+
+li{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+}
+
+section h1 {
+    text-align: center;
+    width: 40rem;
+    font-weight: bolder;
+    font-size: 3rem;
+    padding: 1rem 2rem;
+}
+
+section form {
+    width: 40rem;
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem 2rem;
+    gap: 1rem;
+}
+
+section form input,
+.add-item {
+    width: 20%;
+    text-align: center;
+    font-size: 13pt;
+    height: 2rem;
+    transition: 0.2s linear;
+    margin: 1rem 0;
+
+}
+
+section form input {
+    width: 60%;
+    padding: 0 1.5rem;
+    background: radial-gradient(circle at 100% 100%, #ffffff 0, #ffffff 5px, transparent 5px) 0% 0%/7px 7px no-repeat,
+        radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 5px, transparent 5px) 100% 0%/7px 7px no-repeat,
+        radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 5px, transparent 5px) 0% 100%/7px 7px no-repeat,
+        radial-gradient(circle at 0 0, #ffffff 0, #ffffff 5px, transparent 5px) 100% 100%/7px 7px no-repeat,
+        linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 4px) calc(100% - 14px) no-repeat,
+        linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 14px) calc(100% - 4px) no-repeat,
+        linear-gradient(87deg, #0038bc 0%, #48abe0 100%);
+    border-radius: 7px;
+    box-sizing: border-box;
+    border: none;
+
+}
+
+section form .add-item {
+    border: none;
+    border-radius: 7px;
+    background: var(--bg-color);
+    font-weight: bolder;
+    letter-spacing: 1px;
+}
+
+input:focus,
+input:hover,
+button:hover {
+    outline: none;
+    transform: scale(1.03);
+}
+
+button:hover {
+    background: linear-gradient(90deg, rgba(87, 115, 255, .8) 0%, rgba(113, 168, 255, .8) 50%, rgba(87, 115, 255, 0.8) 100%);
+}
