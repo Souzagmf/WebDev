@@ -13,20 +13,34 @@
         <div class="main-card">
             <h1>Minha Lista de Tarefas</h1>
             <form>
-                <input type="text" placeholder="Descrição da tarefa" />
-                <button class="add-item">Adicionar</button>
+                <input class="title-input" id="title-add" type="text" placeholder="Title" />
+                <textarea name="description" class="description-input" id="description-add" placeholder="Descrição da tarefa"></textarea>
+                <button class="add-btn" onclick="add_item(this)">Adicionar</button>
             </form>
         </div>
         <div class="card-list">
-            <ul>
-                <li><input type="checkbox">Trabalhar na segunda Feira <span><button>X</button></span></li>
-                <li><input type="checkbox">Trabalhar na segunda Feira <span><button>X</button></span></li>
+            <ul id="list-section">
+                <!-- <li class="list-content">
+                    <input type="checkbox" id="checkbox-card"/>
+                    <div class="box-card-text">
+                        <span class="title-card">Trabalhar</span>
+                        <span class="text-card">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure
+                            cupiditate, ex vel facere quod delectus suscipit perspiciatis amet, quam sapiente qui, ipsum
+                            ab consequuntur error! Fuga maxime provident earum mollitia.</span>
+                    </div>
+                    <span>
+                        <button id="remove-button" onclick="remove_item(this)">
+                            <img src="https://img.icons8.com/ios-glyphs/30/ff0000/trash--v1.png" alt="trash--v1" />
+                        </button>
+                    </span>
+                </li> -->
             </ul>
         </div>
-
     </section>
 
 
 </body>
+
+<script src="./script.js"></script>
 
 </html>

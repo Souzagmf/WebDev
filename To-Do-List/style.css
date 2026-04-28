@@ -2,6 +2,8 @@
 
 :root {
     --bg-color: linear-gradient(90deg, hsla(230, 100%, 67%, 1) 0%, rgb(113, 168, 255) 50%, hsla(230, 100%, 67%, 1) 100%);
+    --font-size-text: 13pt;
+    --border-radius: 7px;
 }
 
 * {
@@ -9,10 +11,11 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Nunito", sans-serif;
+    transition: 0.2s linear;
 }
 
 body {
-    background:linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(./src/cloud.png);
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(./src/cloud.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -21,28 +24,30 @@ body {
     justify-content: center;
 }
 
+section{
+    margin-bottom: 3rem;
+}
 
-section, .main-card {
+section,
+.main-card {
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.main-card, .card-list{
+.main-card,
+.card-list {
     width: 40rem;
-    background-color: #ffffff;
-    border-radius: 1rem;
+    border-radius: var(--border-radius);
     margin-top: 50px;
 }
 
-li{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 1rem 2rem;
+.main-card {
+    background-color: #ffffff;
 }
+
+
 
 section h1 {
     text-align: center;
@@ -55,25 +60,24 @@ section h1 {
 section form {
     width: 40rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     padding: 1.5rem 2rem;
     gap: 1rem;
 }
 
 section form input,
-.add-item {
-    width: 20%;
+.add-btn {
+    width: 100%;
     text-align: center;
     font-size: 13pt;
     height: 2rem;
-    transition: 0.2s linear;
     margin: 1rem 0;
 
 }
 
-section form input {
-    width: 60%;
-    padding: 0 1.5rem;
+input[type='text'],
+.description-input {
     background: radial-gradient(circle at 100% 100%, #ffffff 0, #ffffff 5px, transparent 5px) 0% 0%/7px 7px no-repeat,
         radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 5px, transparent 5px) 100% 0%/7px 7px no-repeat,
         radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 5px, transparent 5px) 0% 100%/7px 7px no-repeat,
@@ -81,27 +85,138 @@ section form input {
         linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 4px) calc(100% - 14px) no-repeat,
         linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 14px) calc(100% - 4px) no-repeat,
         linear-gradient(87deg, #0038bc 0%, #48abe0 100%);
-    border-radius: 7px;
+    border-radius: var(--border-radius);
     box-sizing: border-box;
     border: none;
 
 }
 
-section form .add-item {
+form .title-input {
+    font-size: 2rem;
+    height: 3rem;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+form .description-input {
+    width: 100%;
+    height: 200px;
+    font-size: var(--font-size-text);
+    padding: 1rem 2rem;
+    text-align: justify;
+    text-wrap: balance;
+}
+
+
+.add-btn {
+    width: 100%;
     border: none;
-    border-radius: 7px;
+    font-size: var(--font-size-text);
+    border-radius: var(--border-radius);
     background: var(--bg-color);
     font-weight: bolder;
     letter-spacing: 1px;
+    cursor: pointer;
 }
 
 input:focus,
 input:hover,
-button:hover {
+.add-btn:hover,
+textarea:hover,
+textarea:focus {
     outline: none;
     transform: scale(1.03);
 }
 
-button:hover {
+.add-btn:hover {
     background: linear-gradient(90deg, rgba(87, 115, 255, .8) 0%, rgba(113, 168, 255, .8) 50%, rgba(87, 115, 255, 0.8) 100%);
+}
+
+
+/* List Card */
+ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-text);
+    padding: 1rem 2rem;
+}
+
+li .text-card {
+    width: 85%;
+}
+
+li input[type='checkbox'] {
+    appearance: none;
+    position: relative;
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    background: rgba(189, 255, 214, 1);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+li input[type='checkbox']:hover
+{
+    transform: scale(1.1);
+    background: rgb(51, 255, 129);
+
+}
+
+li input[type='checkbox']:checked{
+    background: rgb(3, 199, 78);
+}
+
+input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 7px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0; /* Cria as bordas lateral e inferior */
+    transform: rotate(45deg);  /* Gira para parecer um V */
+}
+
+li .box-card-text{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+li .box-card-text .text-card{
+    font-style: italic;
+}
+
+li .box-card-text .title-card{
+    font-weight: bolder;
+}
+
+li button {
+    background: none;
+    display: flex;
+    align-items: center;
+    border: none;
+}
+
+li button img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+li button img:hover {
+    transform: scale(1.15);
 }
