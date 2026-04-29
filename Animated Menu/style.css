@@ -1,0 +1,122 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2980b9;
+    --text-color: #ecf0f1;
+    --text-secondary-color: #000f1f;
+    --background-color: #34495e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--text-color);
+    transition: background-color 0.5s ease;
+}
+
+.menu-lateral {
+    position: fixed;
+    left: -300px;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background-color: var(--background-color);
+    z-index: 5;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+
+    ul {
+        list-style: none;
+        margin-top: 60px;
+
+        li{
+            padding: 1rem 2rem;
+
+            a{
+                text-decoration: none;
+                color: var(--text-color);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                i{
+                    font-size: 24px;
+                }
+
+                i:hover{
+                    transform: translateX(5px) rotate(5deg);
+                }
+            }
+        }
+
+        li:hover{
+            background-color: var(--secondary-color);
+        }
+
+    }
+}
+
+.menu-lateral.ativo {
+    left: 0;
+}
+
+.botao-menu{
+    background-color: var(--primary-color);
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    z-index: 5;
+    border-radius: 5px;
+    font-size: 24px;
+    border: none;
+    padding: .3rem .5rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+
+}
+
+.botao-menu:hover{
+    background-color:  var(--secondary-color);
+}
+
+.botao-menu.ativo{
+    left: 320px;
+}
+
+.conteudo{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-left: 5rem;
+    padding: 3rem;
+    color: var(--text-secondary-color);
+    transition: all 0.5s ease;
+
+}
+
+.conteudo.ativo{
+    margin-left: 360px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 4;
+}
+
+.background.ativo{
+    opacity: 1;
+    visibility: visible;
+}
