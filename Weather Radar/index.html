@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Weather Radar</title>
+</head>
+
+<body>
+    <div class="major-box">
+        <input class="city-input" type="text" placeholder="CITY NAME">
+        <button class="search-button" onclick="click_btn()">
+            <img class="image-search-button" src="https://www.svgrepo.com/show/488200/find.svg"
+                alt="image-search-button">
+        </button>
+        <div class="middle-box">
+            <h2 class="city">Weather in ??</h2>
+            <p class="temp">??°C</p>
+            <div class="minor-box">
+                <img class="weather-image" src="https://openweathermap.org/img/wn/04n.png" alt="icon-weather-info">
+                <p class="radar-weather">??</p>
+            </div>
+            <p class="humidity">humidity: ??%</p>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+
+</html>
