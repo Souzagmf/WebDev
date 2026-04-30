@@ -4,10 +4,15 @@ const recipedetails = document.querySelector('.recipe-details')
 
 //Take all recipes from server
 async function searchRecipes(ingredient) {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`)
-    const data = await response.json()
+    recipeList.innerHTML = '<p>Carregando...</p>'
+    try {
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`)
+        const data = await response.json()
 
-    showRecipes(data.meals)
+        showRecipes(data.meals)
+    } catch(err){
+        recipeList.innerHTML = '<p>Nenhuma receita encontrada</p>'
+    }
 }
 
 function showRecipes(recipes) {
