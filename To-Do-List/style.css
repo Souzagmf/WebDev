@@ -155,7 +155,7 @@ li .text-card {
     width: 85%;
 }
 
-li input[type='checkbox'] {
+/* li input[type='checkbox'] {
     appearance: none;
     position: relative;
     vertical-align: middle;
@@ -185,10 +185,12 @@ input[type="checkbox"]:checked::after {
     width: 5px;
     height: 10px;
     border: solid white;
-    border-width: 0 3px 3px 0; /* Cria as bordas lateral e inferior */
-    transform: rotate(45deg);  /* Gira para parecer um V */
-}
+    border-width: 0 3px 3px 0; 
+    transform: rotate(45deg);  
+} 
 
+*/
+    
 li .box-card-text{
     width: 80%;
     display: flex;

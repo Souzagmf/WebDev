@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto Mono", monospace;
+    transition: .2s linear;
+}
+
+
+
+body {
+    background: radial-gradient(circle, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 61%, 1) 100%);
+
+    background: -moz-radial-gradient(circle, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 61%, 1) 100%);
+
+    background: -webkit-radial-gradient(circle, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 61%, 1) 100%);
+
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#FFFFFF", endColorstr="#9B9B9B", GradientType=1);
+}
+
+main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 9px 0px #333333;
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+}
+
+img {
+    width: 50px;
+    height: 70px;
+}
+
+.options,
+.results {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.results {
+    flex-direction: column;
+    gap: 20px;
+}
+
+.results p {
+    font-size: 2rem;
+}
+
+.results p,
+.options p {
+    font-weight: bolder;
+    color: #7d2ae8;
+}
+
+.results.hovertext .result-text:hover {
+    cursor: default;
+    text-decoration: underline;
+    transform: scale(1.1);
+}
+
+.results img {
+    margin: 2rem 3rem;
+    width: 100px;
+    height: 140px;
+}
+
+.options {
+    gap: 50px;
+    margin: 3rem 0;
+}
+
+.options span {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1rem;
+    z-index: 3;
+}
+
+.options span:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.cpu-choice img{
+    transform: rotate(-90deg) rotateY(180deg);
+
+}
+
+.user-choice img{
+    transform: rotate(90deg);    
+}
+
+.container.start .user-choice img{
+    transform: rotate(90deg);    
+    animation: userShakes 0.7s ease infinite;
+}
+
+.container.start .cpu-choice img{
+    transform: rotate(-90deg) rotateY(180deg);
+    animation: cpuShakes 0.7s ease infinite;
+}
+
+/* Animações com correção de posição */
+@keyframes userShakes {
+    0%, 100% { 
+        transform: rotate(90deg) translateY(0); 
+    }
+    50% { 
+        /* O translateY ajuda a compensar o arco do movimento */
+        transform: rotate(70deg) translateY(-10px); 
+    }
+}
+
+@keyframes cpuShakes {
+    0%, 100% { 
+        transform: rotate(-90deg) scaleX(-1) translateY(0); 
+    }
+    50% { 
+        transform: rotate(-70deg) scaleX(-1) translateY(-10px); 
+    }
+}
