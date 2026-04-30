@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Change Color</title>
+</head>
+
+<body class="body-bg">
+    <main>
+        <h1>Troca de cor</h1>
+        <button class="red-btn" onclick="changeColor('red')">Red</button>
+        <button class="green-btn" onclick="changeColor('green')">Green</button>
+        <button class="blue-btn" onclick="changeColor('blue')">Blue</button>
+        <button class="yellow-btn" onclick="changeColor('yellow')">Yellow</button>
+        <button class="randon-btn" onclick="randomColor()">Random color</button>
+        <br />
+        <input class="input-color" type="text" placeholder="Color name or #HEX" />
+        <button onclick="applyColorType()">Apply</button>
+        <input type="color" onchange="changeColor(this.value)"/>
+        <label>
+            Choose Image
+            <input class="image-bg" type="file" accept="image/*"  onchange="chooseImage(this.files[0])">
+        </label>
+    </main>
+</body>
+<script src="script.js"></script>
+
+</html>
