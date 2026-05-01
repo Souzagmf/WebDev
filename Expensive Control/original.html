@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinançaTrack - Dashboard de Gastos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Chosen Palette: Slate and Emerald (Warm neutrals with calm green accents for finances, distinct colors for categories) -->
+    
+    <!-- Application Structure Plan: O aplicativo adota um layout de "Dashboard de Visão Única" (Single-View Dashboard). O topo exibe o indicador principal (Total Gasto) para rápida visualização. A tela é dividida em duas áreas principais: à esquerda (ou topo no mobile), a entrada de dados (formulário) para facilitar o registro rápido de gastos; à direita, a visualização de dados compreendendo uma tabela detalhada com filtros e um gráfico de distribuição. Essa estrutura permite que o consultor veja imediatamente o impacto de uma nova despesa no seu orçamento total e na distribuição por categoria, otimizando o fluxo de trabalho de prestação de contas. -->
+    
+    <!-- Visualization & Content Choices: Report Info: Valor Total -> Goal: Inform -> Viz: Dynamic Stat Display (Header) -> Justification: Immediate financial awareness. Report Info: Categorias de Gasto -> Goal: Compare/Organize -> Viz: Donut Chart (Chart.js) -> Justification: Easily compares proportions of spending across categories. Report Info: Lista de Despesas -> Goal: Organize/Details -> Viz: Tabela Interativa (HTML/Tailwind) -> Interaction: Filter and Delete -> Justification: Allows deep dive into individual entries and data manipulation. Confirmed NO SVG/Mermaid. -->
+    
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            background-color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        
+        .cat-alimentacao { background-color: #fef3c7; color: #d97706; }
+        .cat-transporte { background-color: #e0f2fe; color: #0284c7; }
+        .cat-hospedagem { background-color: #f3e8ff; color: #9333ea; }
+        .cat-outros { background-color: #f1f5f9; color: #475569; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">📊</span>
+                <h1 class="text-2xl font-bold text-slate-800 tracking-tight">FinançaTrack</h1>
+            </div>
+            
+            <div class="bg-emerald-50 border border-emerald-200 px-6 py-2 rounded-xl shadow-sm flex items-center gap-3">
+                <div class="p-2 bg-emerald-100 rounded-lg text-emerald-600">
+                    <span class="text-xl">💰</span>
+                </div>
+                <div>
+                    <p class="text-xs text-emerald-600 font-semibold uppercase tracking-wider">Total Gasto Acumulado</p>
+                    <p class="text-2xl font-bold text-emerald-700" id="display-total">R$ 0,00</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <section class="lg:col-span-1 flex flex-col gap-6">
+            
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <h2 class="text-xl font-bold text-slate-800 mb-2 flex items-center gap-2">
+                    <span>➕</span> Adicionar Nova Despesa
+                </h2>
+                <p class="text-sm text-slate-500 mb-6">Utilize este formulário para registrar os gastos ocorridos durante a viagem de campo. Todos os campos são obrigatórios para garantir a correta prestação de contas.</p>
+                
+                <form id="form-despesa" class="flex flex-col gap-4">
+                    <div>
+                        <label for="descricao" class="block text-sm font-medium text-slate-700 mb-1">Descrição do Gasto</label>
+                        <input type="text" id="descricao" required placeholder="Ex: Jantar com cliente" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all">
+                    </div>
+                    
+                    <div>
+                        <label for="valor" class="block text-sm font-medium text-slate-700 mb-1">Valor (R$)</label>
+                        <input type="number" id="valor" required min="0.01" step="0.01" placeholder="Ex: 85.50" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all">
+                    </div>
+                    
+                    <div>
+                        <label for="categoria" class="block text-sm font-medium text-slate-700 mb-1">Categoria</label>
+                        <select id="categoria" required class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all">
+                            <option value="" disabled selected>Selecione uma categoria...</option>
+                            <option value="Alimentação">🍔 Alimentação</option>
+                            <option value="Transporte">🚗 Transporte</option>
+                            <option value="Hospedagem">🏨 Hospedagem</option>
+                            <option value="Outros">🏷️ Outros</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="mt-2 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 px-4 rounded-lg shadow-sm shadow-emerald-200 transition-colors flex justify-center items-center gap-2">
+                        <span>💾</span> Salvar Despesa
+                    </button>
+                </form>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex-grow">
+                <h2 class="text-xl font-bold text-slate-800 mb-2 flex items-center gap-2">
+                    <span>pie</span> Resumo por Categoria
+                </h2>
+                <p class="text-sm text-slate-500 mb-6">Esta visualização interativa permite entender rapidamente onde os recursos estão sendo alocados. O gráfico é atualizado automaticamente conforme as despesas e filtros são aplicados.</p>
+                
+                <div class="chart-container">
+                    <canvas id="grafico-categorias"></canvas>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="lg:col-span-2 flex flex-col gap-6">
+            
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-full flex flex-col">
+                
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                            <span>📋</span> Extrato de Despesas
+                        </h2>
+                        <p class="text-sm text-slate-500 mt-1">Nesta seção você pode visualizar todos os registros detalhados, filtrá-los por categoria para análises específicas e remover itens inseridos incorretamente.</p>
+                    </div>
+                    
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        <span class="text-sm font-medium text-slate-600">Filtrar:</span>
+                        <select id="filtro-categoria" class="flex-1 sm:flex-none px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm outline-none">
+                            <option value="Todas">Todas as Categorias</option>
+                            <option value="Alimentação">Alimentação</option>
+                            <option value="Transporte">Transporte</option>
+                            <option value="Hospedagem">Hospedagem</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto flex-grow">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b-2 border-slate-200 text-slate-600 text-sm">
+                                <th class="pb-3 pl-2 font-semibold">Data</th>
+                                <th class="pb-3 px-4 font-semibold">Descrição</th>
+                                <th class="pb-3 px-4 font-semibold">Categoria</th>
+                                <th class="pb-3 px-4 font-semibold text-right">Valor</th>
+                                <th class="pb-3 pr-2 font-semibold text-center w-16">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-despesas" class="text-sm divide-y divide-slate-100">
+                        </tbody>
+                    </table>
+                    
+                    <div id="mensagem-vazia" class="hidden flex-col items-center justify-center py-12 text-slate-400">
+                        <span class="text-4xl mb-3">📭</span>
+                        <p>Nenhuma despesa encontrada.</p>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </section>
+
+    </main>
+
+    <script>
+        const state = {
+            despesas: JSON.parse(localStorage.getItem('financaTrackData')) || [],
+            filtroAtual: 'Todas',
+            grafico: null
+        };
+
+        const form = document.getElementById('form-despesa');
+        const listaBody = document.getElementById('lista-despesas');
+        const displayTotal = document.getElementById('display-total');
+        const filtroSelect = document.getElementById('filtro-categoria');
+        const mensagemVazia = document.getElementById('mensagem-vazia');
+        const canvasGrafico = document.getElementById('grafico-categorias');
+
+        const coresCategorias = {
+            'Alimentação': { bg: '#fef3c7', text: '#d97706', hex: '#f59e0b' },
+            'Transporte': { bg: '#e0f2fe', text: '#0284c7', hex: '#0ea5e9' },
+            'Hospedagem': { bg: '#f3e8ff', text: '#9333ea', hex: '#a855f7' },
+            'Outros': { bg: '#f1f5f9', text: '#475569', hex: '#64748b' }
+        };
+
+        const formatarMoeda = (valor) => {
+            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+        };
+
+        const formatarData = (dataIso) => {
+            return new Intl.DateTimeFormat('pt-BR').format(new Date(dataIso));
+        };
+
+        const obterDespesasFiltradas = () => {
+            if (state.filtroAtual === 'Todas') {
+                return state.despesas;
+            }
+            return state.despesas.filter(d => d.categoria === state.filtroAtual);
+        };
+
+        const salvarDados = () => {
+            localStorage.setItem('financaTrackData', JSON.stringify(state.despesas));
+        };
+
+        const renderizarTabela = (despesasVisiveis) => {
+            listaBody.innerHTML = '';
+            
+            if (despesasVisiveis.length === 0) {
+                mensagemVazia.classList.remove('hidden');
+                mensagemVazia.classList.add('flex');
+            } else {
+                mensagemVazia.classList.add('hidden');
+                mensagemVazia.classList.remove('flex');
+                
+                despesasVisiveis.forEach(despesa => {
+                    const tr = document.createElement('tr');
+                    tr.className = 'hover:bg-slate-50 transition-colors group';
+                    
+                    const classCor = `cat-${despesa.categoria.toLowerCase().replace('ç','c').replace('ã','a')}`;
+                    
+                    tr.innerHTML = `
+                        <td class="py-3 pl-2 text-slate-500 whitespace-nowrap">${formatarData(despesa.data)}</td>
+                        <td class="py-3 px-4 font-medium text-slate-800">${despesa.descricao}</td>
+                        <td class="py-3 px-4">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[${coresCategorias[despesa.categoria].bg}] text-[${coresCategorias[despesa.categoria].text}]">
+                                ${despesa.categoria}
+                            </span>
+                        </td>
+                        <td class="py-3 px-4 text-right font-semibold text-slate-700">${formatarMoeda(despesa.valor)}</td>
+                        <td class="py-3 pr-2 text-center">
+                            <button onclick="removerDespesa('${despesa.id}')" class="text-slate-300 hover:text-red-500 transition-colors p-1 rounded focus:outline-none focus:ring-2 focus:ring-red-500 opacity-0 group-hover:opacity-100" title="Excluir">
+                                🗑️
+                            </button>
+                        </td>
+                    `;
+                    listaBody.appendChild(tr);
+                });
+            }
+        };
+
+        const atualizarDashboard = () => {
+            const despesasVisiveis = obterDespesasFiltradas();
+            
+            const total = despesasVisiveis.reduce((acc, curr) => acc + curr.valor, 0);
+            displayTotal.textContent = formatarMoeda(total);
+            
+            renderizarTabela(despesasVisiveis);
+            atualizarGrafico(despesasVisiveis);
+            salvarDados();
+        };
+
+        const atualizarGrafico = (dados) => {
+            const agregacao = {
+                'Alimentação': 0,
+                'Transporte': 0,
+                'Hospedagem': 0,
+                'Outros': 0
+            };
+
+            dados.forEach(d => {
+                agregacao[d.categoria] += d.valor;
+            });
+
+            const labels = Object.keys(agregacao);
+            const valores = Object.values(agregacao);
+            const cores = labels.map(l => coresCategorias[l].hex);
+
+            const somaGrafico = valores.reduce((a,b) => a+b, 0);
+
+            if (state.grafico) {
+                state.grafico.destroy();
+            }
+
+            if (somaGrafico === 0) {
+                const ctx = canvasGrafico.getContext('2d');
+                ctx.clearRect(0, 0, canvasGrafico.width, canvasGrafico.height);
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillStyle = '#94a3b8';
+                ctx.font = '14px Segoe UI';
+                ctx.fillText('Sem dados para exibir', canvasGrafico.width / 2, canvasGrafico.height / 2);
+                return;
+            }
+
+            state.grafico = new Chart(canvasGrafico, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: valores,
+                        backgroundColor: cores,
+                        borderWidth: 2,
+                        borderColor: '#ffffff',
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20,
+                                font: {
+                                    family: "'Segoe UI', sans-serif",
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += formatarMoeda(context.parsed);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        };
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const descricaoInput = document.getElementById('descricao');
+            const valorInput = document.getElementById('valor');
+            const categoriaInput = document.getElementById('categoria');
+            
+            const valorNumerico = parseFloat(valorInput.value);
+            
+            if (!descricaoInput.value.trim() || isNaN(valorNumerico) || valorNumerico <= 0 || !categoriaInput.value) {
+                alert('Por favor, preencha todos os campos corretamente com valores positivos.');
+                return;
+            }
+
+            const novaDespesa = {
+                id: Date.now().toString(36) + Math.random().toString(36).substr(2),
+                descricao: descricaoInput.value.trim(),
+                valor: valorNumerico,
+                categoria: categoriaInput.value,
+                data: new Date().toISOString()
+            };
+
+            state.despesas.push(novaDespesa);
+            
+            descricaoInput.value = '';
+            valorInput.value = '';
+            categoriaInput.value = '';
+            
+            atualizarDashboard();
+        });
+
+        filtroSelect.addEventListener('change', (e) => {
+            state.filtroAtual = e.target.value;
+            atualizarDashboard();
+        });
+
+        window.removerDespesa = (id) => {
+            state.despesas = state.despesas.filter(d => d.id !== id);
+            atualizarDashboard();
+        };
+
+        atualizarDashboard();
+    </script>
+</body>
+</html>

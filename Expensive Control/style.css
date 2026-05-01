@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+:root {
+  /* Cores Principais (Baseadas no Logo) */
+  --primary-color: #004b63;      /* Azul Petróleo - Confiança e Títulos */
+  --secondary-color: #389cb8af;    /* Azul Suave - Links e Ícones */
+  --accent-color: #4caf50;       /* Verde Crescimento - Botões de Sucesso e Receitas */
+  
+  /* Cores de Interface e Feedback */
+  --background-color: #ffffff;   /* Fundo Principal - Limpeza Visual */
+  --surface-color: #f4f7f8;      /* Fundo de Cards ou Tabelas */
+  --text-main: #292929;          /* Texto Principal - Legibilidade */
+  --text-muted: #666666;         /* Texto Secundário ou Legendas */
+  --danger-color: #e53935;       /* Alerta/Gastos - Contraste Necessário */
+
+  /* Espaçamentos e Bordas (Opcional para padronização) */
+  --radius-main: 8px;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito", sans-serif;
+    color: var(--text-main);
+}
+
+body{
+    background-color: var(--background-color);
+}
+
+nav{
+    width: 100vw;
+    background-color: var(--surface-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+
+    .logo-enterprise{
+        width: 175px;
+        margin-left: 50px;
+        cursor: default;
+    }
+
+    .expenses-box{
+        background-color: var(--secondary-color);
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        margin: 1rem 2rem ;
+        border-radius: var(--radius-main);
+        box-shadow: var(--shadow-sm);
+
+        .bag-img{
+            width: 50px;
+            margin-right: 1rem;
+        }
+
+        .text-box>p{
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .text-box>h1{
+            font-weight: lighter;
+            letter-spacing: -2px;
+            text-align: center;
+        }
+    }
+
+    .expenses-box:hover{
+        opacity: .9;
+        cursor: pointer;
+    }
+
+}
+
