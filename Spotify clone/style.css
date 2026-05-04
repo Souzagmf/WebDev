@@ -96,13 +96,113 @@ body {
     border-radius: 20px;
 }
 
-main{
+
+main {
     padding: 24px;
+    flex-grow: 1;
+    overflow-y: auto;
+
+
+    .search-bar {
+        display: flex;
+        align-items: center;
+        background-color: #242424;
+        padding: 8px 16px;
+        border-radius: 20px;
+        width: 300px;
+
+        input {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            width: 100%;
+            margin-left: 15px;
+            outline: none;
+        }
+    }
+
+    .content {
+        margin-top: 40px;
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+
+        .artist-grid,
+        .albums-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+
+
+
+            .album-card,
+            .artist-card {
+                background-color: #181818;
+                padding: 16px;
+                border-radius: 8px;
+                text-align: center;
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+
+                img {
+                    width: 100%;
+                    border-radius: 50%;
+                    margin-bottom: 16px;
+                    max-height: 70%;
+                }
+
+                h3 {
+                    font-size: 12px;
+                }
+
+                p {
+                    font-size: 10px;
+                    color: #b7b3b6;
+                }
+
+            }
+
+            .album-card:hover,
+            .artist-card:hover {
+                background-color: #282828;
+            }
+
+
+        }
+    }
 }
 
-.artist-grid, .albums-grid{
-    display: grid;
-    grid-template-columns: repeat(autofill, minmax(180px, 1fr));
-    gap: 24px;
-    margin-bottom: 14px;
+.banner{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: linear-gradient(90deg, #af2896, #509bf5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 20px;
+
+    h2{
+        font-size: 14px;
+    }
+
+    p{
+        font-size: 10px;
+    }
+
+    button{
+        border-radius: 20px;
+        color: #000;
+        border: none;
+        padding: 12px 20px;
+        font-weight: 600;
+        cursor: pointer;
+    }
 }
