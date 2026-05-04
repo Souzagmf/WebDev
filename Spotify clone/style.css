@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito", sans-serif;
+}
+
+body {
+    background-color: #000;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    height: 100dvh;
+}
+
+.sidebar {
+    width: 300px;
+    background-color: #121212;
+    padding: 10px;
+    padding-bottom: 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.nav-logo i {
+    font-size: 24px;
+}
+
+.nav-library {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+
+    .fa-book,
+    p {
+        color: #b7b3b6;
+        font-size: 14px;
+    }
+}
+
+.nav-playlist,
+.nav-podcast {
+    background-color: #242424;
+    padding: 16px;
+    border-radius: 8px;
+
+    button {
+        background-color: #fff;
+        color: #000;
+        border: none;
+        padding: 6px 10px;
+        margin-top: 16px;
+        cursor: pointer;
+        font-size: 12px;
+        border-radius: 20px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+}
+
+.nav-footer {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+
+
+
+    a {
+        color: #a7a7a7;
+        text-decoration: none;
+        font-size: 12px;
+        margin-right: 12px;
+        margin-bottom: 8px;
+    }
+
+}
+
+.nav-lang-button {
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 8px 12px;
+    margin-top: 16px;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+main{
+    padding: 24px;
+}
+
+.artist-grid, .albums-grid{
+    display: grid;
+    grid-template-columns: repeat(autofill, minmax(180px, 1fr));
+    gap: 24px;
+    margin-bottom: 14px;
+}
