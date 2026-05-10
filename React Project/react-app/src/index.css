@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Metal+Mania&family=Sedgwick+Ave+Display&family=Underdog&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -79,6 +81,7 @@
     border-radius: 50%;
     border: .5px solid #808080;
     margin-bottom: 10px;
+    cursor: pointer;
   }
 
   h2 {
@@ -120,18 +123,19 @@
     border-radius: 8px;
   }
 
+  & :hover {
+    z-index: 100;
+    transform: scale(1.1);
+    background-color: #f1f1f1;
+  }
 }
 
-.card:hover {
-  z-index: 100;
-  transform: scale(1.4);
-  background-color: #f1f1f1;
-}
 
 .student-box {
   width: 90%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-top: 20px;
   margin-bottom: 30px;
   place-items: center;
 
@@ -141,9 +145,10 @@
     margin: 10px;
     border: 1px solid #999999;
     padding: 1rem 2rem;
+    border: 1px inset rgba(59, 59, 59, 0.55);
     border-radius: 8px;
-    background: linear-gradient(0deg, rgba(153, 153, 153, 0.9) 0%, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 1) 80%, rgba(153, 153, 153, 0.9) 100%);
-    box-shadow: 0px 4px 15px hsla(0, 0%, 0%, 0.4);
+    background-color: #eeeeee;
+    box-shadow: 0px 0px 10px 3px rgba(59, 59, 59, 0.75) inset;
 
     p {
       margin: 20px 0;
@@ -155,6 +160,81 @@
     }
   }
 
+}
+
+
+.title-h1 {
+  margin: 1rem;
+  text-transform: uppercase;
+  font-family: "Underdog", system-ui;
+  color: #d99a26;
+  text-decoration: underline;
+  font-size: 40px;
+  cursor: default;
+}
+
+.list-box {
+  width: 90%;
+  display: grid;
+  margin-bottom: 30px;
+  grid-template-columns: repeat(3, minmax(250px, 1fr));
+  justify-content: space-around;
+  gap: 20px;
+  place-items: center;
+  margin-top: 30px;
+
+  .list-content {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border: 1px inset rgba(59, 59, 59, 0.55);
+    border-radius: 8px;
+    background-color: #eeeeee;
+    box-shadow: 0px 0px 10px 3px rgba(59, 59, 59, 0.75) inset;
+
+    h3 {
+      margin-bottom: 1rem;
+      font-family: "Audiowide", sans-serif;
+    }
+
+    ol {
+      list-style: none;
+      text-transform: capitalize;
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: .6rem;
+        padding: .6rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        backface-visibility: hidden;
+        will-change: transform;
+
+        b {
+          margin-left: 20px;
+        }
+      }
+
+      li:hover {
+        position: relative;
+        color: #d99a26;
+        border: 1px solid #d99a26;
+        background-color: #fff;
+        border-radius: 8px;
+        transform: scale(1.25);
+        z-index: 5;
+        box-shadow: 0px 0px 10px 3px rgba(59, 59, 59, 0.55);
+
+        b {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
 }
 
 footer {
@@ -174,5 +254,11 @@ footer {
     font-weight: bold;
     text-transform: uppercase;
     cursor: default;
+  }
+}
+
+@media (max-width: 870px) {
+  .list-box {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 }

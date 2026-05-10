@@ -1,0 +1,62 @@
+.button {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    width: 150px;
+    cursor: pointer;
+    margin: 20px 0 30px 0;
+    font-size: 19px;
+    padding: .7rem;
+    border: none;
+    background-color: #3b3b3b;
+    color: #f1f1f1;
+    border-radius: 10px;
+    transition: all .2s ease;
+  }
+
+  button:hover {
+    background-color: #d99a26;
+    font-weight: bold;
+  }
+
+}
+
+.userGreetings {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem 0;
+  
+  .wellcome-message {
+    font-family: "Audiowide", sans-serif;
+    color: #d99a26;
+    font-size: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  
+    .username-span {
+      font-size: 60px;
+      color: #3b3b3b;
+      font-family: "Metal Mania", system-ui;
+    }
+  }
+  
+  .login-prompt {
+    font-size: 50px;
+    color: #d99a26;
+    font-family: "Underdog", system-ui;
+  
+    .logIn-span {
+      color: #3b3b3b;
+      font-family: "Sedgwick Ave Display", cursive;
+    }
+  }
+}
