@@ -4,34 +4,22 @@ import style from "./Counter.module.css"
 function Counter() {
 
     const [counterValue, setCountValue] = useState(0);
-
     const [value, setValue] = useState(1)
     const incrementValue = () => {
-        const incValue = counterValue + value;
-        
-        incValue >= 99 ? setCountValue(0) : setCountValue(incValue);
+        counterValue >= 99 ? setCountValue(0) : setCountValue(c => c + value);
     }
 
     const decrementValue = () => {
-        const decValue = counterValue - value;
-        
-        decValue <= -99 ? setCountValue(0) : setCountValue(decValue);
+        counterValue <= -99 ? setCountValue(0) : setCountValue(c => c - value);
     }
 
     const resetValue = () => {
         setCountValue(0);
     }
 
-    const changeOne = () => {
-        setValue(1)
-    }
-
-    const changeFive = () => {
-        setValue(5)
-    }
-    
-    const changeTen = () => {
-        setValue(10)
+    const changeValue = (event) => {
+        const value = event.target.value
+        setValue(Number(value))
     }
 
 
@@ -41,16 +29,16 @@ function Counter() {
             <div className={style["middleSpans"]}>
                 <span>{counterValue}</span>
                 <div className={style["changeValueButtons"]}>
-                    <button onClick={changeOne}>1</button>
-                    <button onClick={changeFive}>5</button>
-                    <button onClick={changeTen}>10</button>
+                    <button onClick={changeValue} value={1}>1</button>
+                    <button onClick={changeValue} value={5}>5</button>
+                    <button onClick={changeValue} value={10}>10</button>
                 </div>
             </div>
 
             <div className="buttonsActions">
-                <button onClick={decrementValue}>-1</button>
+                <button onClick={decrementValue}>-{value}</button>
                 <button onClick={resetValue}>0</button>
-                <button onClick={incrementValue}>+1</button>
+                <button onClick={incrementValue}>+{value}</button>
             </div>
         </div>
     );

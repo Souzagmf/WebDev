@@ -6,6 +6,8 @@ import Student from "./Student.jsx"
 import List from "./List.jsx"
 import Counter from "./components/Counter/Counter.jsx"
 import OnChangeInput from "./components/OnChangeInputs/OnChangeInput.jsx"
+import ColorPicker from "./components/ColorPicker/ColorPicker.jsx"
+import ListComments from "./components/ListComments/ListComments.jsx"
 
 
 function App() {
@@ -112,6 +114,10 @@ function App() {
             <Counter />
 
             <OnChangeInput />
+
+            <ColorPicker />
+
+            <ListComments />
 
             <Footer />
         </>
